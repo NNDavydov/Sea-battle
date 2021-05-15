@@ -245,12 +245,12 @@ void computer_intelligence::location_ships() {
             cur_x = rand() % 10;
             cur_y = rand() % 10;
             position = rand() % 2;
-        } while (check_ship(cur_x, cur_y, ships[i], position));
+        } while (!check_ship(cur_x, cur_y, ships[i], position));
         create_ship(cur_x, cur_y, ships[i], position);
     }
 }
 
 
-std::array<std::array<char, 10>, 10> computer_intelligence::get_computer_field() const{
+std::array<std::array<char, 10>, 10> &computer_intelligence::get_computer_field() {
     return computer_field;
 }

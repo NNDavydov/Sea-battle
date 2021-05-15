@@ -26,6 +26,13 @@ public:
 
     ~WINDOW_LOCATION_SHIPS();
 
+    void display() const;
+
+    bool location();
+
+    std::array<std::array<char, 10>, 10> get_my_field() const;
+
+private:
     bool check_ship(size_t size_ship, bool position);
 
     void move_up();
@@ -37,12 +44,6 @@ public:
     void move_right();
 
     void create_ship(size_t size_ship, bool position);
-
-    void display() const;
-
-    bool location();
-
-    std::array<std::array<char, 10>, 10> get_my_field() const;
 };
 
 #endif //HOMEWORK_2_LOCATION_SHIPS_H

@@ -12,12 +12,13 @@ WINDOW_GAME_MY_FIELD::WINDOW_GAME_MY_FIELD(const std::array<std::array<char, 10>
     }
 }
 
+
 WINDOW_GAME_MY_FIELD::~WINDOW_GAME_MY_FIELD() {
     delwin(window_my_field);
 }
 
+
 void WINDOW_GAME_MY_FIELD::display() const {
-    clear();
     refresh();
     box(window_my_field, 0, 0);
     for (int i = 0; i < 10; ++i) {
@@ -28,24 +29,25 @@ void WINDOW_GAME_MY_FIELD::display() const {
     wrefresh(window_my_field);
 }
 
-bool WINDOW_GAME_MY_FIELD::computer_move(std::array<std::array<int, 10>, 10> &shots, const int x, const int y) {
+
+void WINDOW_GAME_MY_FIELD::computer_move(std::array<std::array<int, 10>, 10> &shots, const int x, const int y) {
     if (my_field_[x][y] == symbols::ship) {
         my_field_[x][y] = symbols::injured_ship;
         if (is_ship_sunk(shots, x, y)) {
             shots[x][y] = 2;
             automatic_bombardment(shots, x, y);
             display();
-            return true;
+            return;
         }
         shots[x][y] = 1;
         display();
-        return true;
+        return;
     }
     my_field_[x][y] = symbols::miss;
     shots[x][y] = -1;
     display();
-    return false;
 }
+
 
 bool WINDOW_GAME_MY_FIELD::is_ship_sunk(std::array<std::array<int, 10>, 10> &shots, const int x, const int y,
                                         const std::string direction) {
@@ -148,6 +150,7 @@ bool WINDOW_GAME_MY_FIELD::is_ship_sunk(std::array<std::array<int, 10>, 10> &sho
     return true;
 }
 
+
 void WINDOW_GAME_MY_FIELD::automatic_bombardment(std::array<std::array<int, 10>, 10> &shots, const int x, const int y) {
     for (int i = -1; i < 2; ++i) {
         for (int j = -1; j < 2; ++j) {
@@ -190,6 +193,7 @@ void WINDOW_GAME_MY_FIELD::automatic_bombardment(std::array<std::array<int, 10>,
     catch (std::out_of_range &e) {}
 }
 
+
 bool WINDOW_GAME_MY_FIELD::availability_of_ships() const {
     for (size_t i = 0; i < 10; ++i) {
         for (size_t j = 0; j < 10; ++j) {
@@ -199,4 +203,9 @@ bool WINDOW_GAME_MY_FIELD::availability_of_ships() const {
         }
     }
     return false;
+}
+
+
+bool WINDOW_GAME_MY_FIELD::is_hit(int x, int y){
+    return my_field_[x][y] == symbols::injured_ship;
 }

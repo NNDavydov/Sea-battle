@@ -3,8 +3,6 @@
 #ifndef SEMESTER2_HOMEWORK_2_COMPUTER_INTELLIGENCE_H
 #define SEMESTER2_HOMEWORK_2_COMPUTER_INTELLIGENCE_H
 
-#include <ncurses.h>
-#include <cstdlib>
 #include <array>
 
 #include "game_symbols.h"
@@ -21,6 +19,13 @@ public:
 
     std::array<std::array<int, 10>, 10> &get_shots();
 
+    std::array<std::array<char, 10>, 10> &get_computer_field();
+
+    void location_ships();
+
+    ~computer_intelligence() noexcept = default;
+
+private:
     std::pair<int, int> aiming(int x, int y);
 
     int shot_direction(int x, int y);
@@ -28,12 +33,6 @@ public:
     bool check_ship(int cur_x, int cur_y, size_t size_ship, bool position);
 
     void create_ship(int cur_x, int cur_y, size_t size_ship, bool position);
-
-    void location_ships();
-
-    std::array<std::array<char, 10>, 10> get_computer_field() const;
-
-    ~computer_intelligence() noexcept = default;
 };
 
 #endif //SEMESTER2_HOMEWORK_2_COMPUTER_INTELLIGENCE_H

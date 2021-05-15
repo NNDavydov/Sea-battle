@@ -8,9 +8,11 @@ WINDOW_LOCATION_SHIPS::WINDOW_LOCATION_SHIPS() noexcept: window_location_ships(n
     }
 }
 
+
 WINDOW_LOCATION_SHIPS::~WINDOW_LOCATION_SHIPS() {
     delwin(window_location_ships);
 }
+
 
 bool WINDOW_LOCATION_SHIPS::check_ship(const size_t size_ship, const bool position) {
     if (my_field[cur_x][cur_y] == symbols::ship || my_field[cur_x][cur_y] == symbols::empty) {
@@ -38,21 +40,26 @@ bool WINDOW_LOCATION_SHIPS::check_ship(const size_t size_ship, const bool positi
     return false;
 }
 
+
 void WINDOW_LOCATION_SHIPS::move_up() {
     if (cur_x != 0) --cur_x;
 }
+
 
 void WINDOW_LOCATION_SHIPS::move_down() {
     if (cur_x != 9) ++cur_x;
 }
 
+
 void WINDOW_LOCATION_SHIPS::move_left() {
     if (cur_y != 0) --cur_y;
 }
 
+
 void WINDOW_LOCATION_SHIPS::move_right() {
     if (cur_y != 9)++cur_y;
 }
+
 
 void WINDOW_LOCATION_SHIPS::create_ship(const size_t size_ship, bool position) {
     if (!position) {
@@ -104,6 +111,7 @@ void WINDOW_LOCATION_SHIPS::create_ship(const size_t size_ship, bool position) {
     }
 }
 
+
 void WINDOW_LOCATION_SHIPS::display() const {
     refresh();
     box(window_location_ships, 0, 0);
@@ -124,10 +132,10 @@ void WINDOW_LOCATION_SHIPS::display() const {
     wrefresh(window_location_ships);
 }
 
+
 bool WINDOW_LOCATION_SHIPS::location() {
     bool position = true;
     for (size_t i = 0; i < 10;) {
-        clear();
         display();
         int ch = getch();
         switch (ch) {
@@ -152,9 +160,6 @@ bool WINDOW_LOCATION_SHIPS::location() {
             case KEY_F(2):
                 position = !position;
                 break;
-            case KEY_F(3):
-                clear();
-                return false;
             default:
                 break;
         }
@@ -162,6 +167,7 @@ bool WINDOW_LOCATION_SHIPS::location() {
     clear();
     return true;
 }
+
 
 std::array<std::array<char, 10>, 10> WINDOW_LOCATION_SHIPS::get_my_field() const {
     return my_field;

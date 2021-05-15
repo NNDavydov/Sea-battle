@@ -9,6 +9,7 @@ namespace symbols{
     const char injured_ship = 'X';
     const char miss = 'O';
     const char empty = 'Q';
+    const char kill = 'K';
 }
 
 #endif //HOMEWORK_2_GAME_SYMBOLS_H
