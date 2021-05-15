@@ -71,6 +71,7 @@ bool WINDOW_GAME_COMPUTER_FIELD::user_move(int x, int y) {
     if(computer_field_[x][y] == symbols::ship){
         visible_computer_field_[x][y] = symbols::injured_ship;
         computer_field_[x][y] = symbols::injured_ship;
+        computer_field_[x][y] = symbols::injured_ship;
         return true;
     }
     visible_computer_field_[x][y] = symbols::miss;
@@ -323,6 +324,7 @@ void WINDOW_GAME_COMPUTER_FIELD::interface() {
                         }
                     }
                     else{
+                        display();
                         return;
                     }
                 }

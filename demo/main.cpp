@@ -27,7 +27,7 @@ int main() {
         WINDOW_GAME_MY_FIELD w2(w1.get_my_field());
         WINDOW_GAME_COMPUTER_FIELD w3(AI.get_computer_field());
         w2.display();
-        w3.interface();
+        w3.display();
         while (w2.availability_of_ships() && w3.availability_of_ships()){
             w3.interface();
             while(true){
