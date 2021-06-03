@@ -26,38 +26,51 @@ void WINDOW_GAME_COMPUTER_FIELD::display() const {
     box(window_computer_field, 0, 0);
     for (int i = 0; i < 10; ++i) {
         for (int j = 0; j < 10; ++j) {
-            if (i == cur_x && j == cur_y) {
-                start_color();
-                init_pair(1, COLOR_BLUE, COLOR_BLACK);
-                wattron(window_computer_field, COLOR_PAIR(1));
+            start_color();
+            if (cur_x == i && cur_y == j) {
+                init_pair(30, COLOR_WHITE, COLOR_BLACK);
+                wattron(window_computer_field, COLOR_PAIR(30));
                 mvwprintw(window_computer_field, 2 * i + 2, 4 * j + 2, "%c", visible_computer_field_[i][j]);
-                wattroff(window_computer_field, COLOR_PAIR(1));
-                use_default_colors();
-            } else {
+                wattroff(window_computer_field, COLOR_PAIR(30));
+            } else if (visible_computer_field_[i][j] == symbols::sea) {
+                init_pair(33, COLOR_BLUE, COLOR_BLACK);
+                wattron(window_computer_field, COLOR_PAIR(33));
                 mvwprintw(window_computer_field, 2 * i + 2, 4 * j + 2, "%c", visible_computer_field_[i][j]);
+                wattroff(window_computer_field, COLOR_PAIR(33));
+            } else if (visible_computer_field_[i][j] == symbols::injured_ship) {
+                init_pair(32, COLOR_RED, COLOR_BLACK);
+                wattron(window_computer_field, COLOR_PAIR(32));
+                mvwprintw(window_computer_field, 2 * i + 2, 4 * j + 2, "%c", visible_computer_field_[i][j]);
+                wattroff(window_computer_field, COLOR_PAIR(32));
+            } else if (visible_computer_field_[i][j] == symbols::miss) {
+                init_pair(34, COLOR_YELLOW, COLOR_BLACK);
+                wattron(window_computer_field, COLOR_PAIR(34));
+                mvwprintw(window_computer_field, 2 * i + 2, 4 * j + 2, "%c", visible_computer_field_[i][j]);
+                wattroff(window_computer_field, COLOR_PAIR(34));
             }
+            use_default_colors();
         }
     }
     wrefresh(window_computer_field);
 }
 
 
-void WINDOW_GAME_COMPUTER_FIELD::move_up(){
+void WINDOW_GAME_COMPUTER_FIELD::move_up() {
     if (cur_x != 0) --cur_x;
 }
 
 
-void WINDOW_GAME_COMPUTER_FIELD::move_down(){
+void WINDOW_GAME_COMPUTER_FIELD::move_down() {
     if (cur_x != 9) ++cur_x;
 }
 
 
-void WINDOW_GAME_COMPUTER_FIELD::move_left(){
+void WINDOW_GAME_COMPUTER_FIELD::move_left() {
     if (cur_y != 0) --cur_y;
 }
 
 
-void WINDOW_GAME_COMPUTER_FIELD::move_right(){
+void WINDOW_GAME_COMPUTER_FIELD::move_right() {
     if (cur_y != 9)++cur_y;
 }
 
@@ -68,7 +81,7 @@ bool WINDOW_GAME_COMPUTER_FIELD::ability_move(int x, int y) {
 
 
 bool WINDOW_GAME_COMPUTER_FIELD::user_move(int x, int y) {
-    if(computer_field_[x][y] == symbols::ship){
+    if (computer_field_[x][y] == symbols::ship) {
         visible_computer_field_[x][y] = symbols::injured_ship;
         computer_field_[x][y] = symbols::injured_ship;
         computer_field_[x][y] = symbols::injured_ship;
@@ -80,7 +93,7 @@ bool WINDOW_GAME_COMPUTER_FIELD::user_move(int x, int y) {
 }
 
 
-bool WINDOW_GAME_COMPUTER_FIELD::is_ship_sunk(int x, int y, std::string direction){
+bool WINDOW_GAME_COMPUTER_FIELD::is_ship_sunk(int x, int y, std::string direction) {
     try {
         if (computer_field_.at(x + 1)[y] == symbols::ship) {
             return false;
@@ -161,7 +174,7 @@ bool WINDOW_GAME_COMPUTER_FIELD::is_ship_sunk(int x, int y, std::string directio
     } else if (direction == "down") {
         try {
             if (visible_computer_field_[x].at(y + 1) == symbols::injured_ship) {
-                if (!is_ship_sunk( x, y + 1, "down")) {
+                if (!is_ship_sunk(x, y + 1, "down")) {
                     return false;
                 }
             }
@@ -181,7 +194,7 @@ bool WINDOW_GAME_COMPUTER_FIELD::is_ship_sunk(int x, int y, std::string directio
 }
 
 
-void WINDOW_GAME_COMPUTER_FIELD::automatic_bombardment(){
+void WINDOW_GAME_COMPUTER_FIELD::automatic_bombardment() {
     int x = cur_x;
     int y = cur_y;
     bool direction = false;
@@ -287,10 +300,10 @@ void WINDOW_GAME_COMPUTER_FIELD::automatic_bombardment(){
 }
 
 
-bool WINDOW_GAME_COMPUTER_FIELD::availability_of_ships() const{
-    for(size_t i =0; i < 10; ++i){
+bool WINDOW_GAME_COMPUTER_FIELD::availability_of_ships() const {
+    for (size_t i = 0; i < 10; ++i) {
         for (int j = 0; j < 10; ++j) {
-            if(computer_field_[i][j] == symbols::ship){
+            if (computer_field_[i][j] == symbols::ship) {
                 return true;
             }
         }
@@ -316,14 +329,13 @@ void WINDOW_GAME_COMPUTER_FIELD::interface() {
                 move_right();
                 break;
             case KEY_F(1):
-                if(ability_move(cur_x, cur_y)){
-                    if(user_move(cur_x, cur_y)){
-                        if(is_ship_sunk(cur_x, cur_y)){
+                if (ability_move(cur_x, cur_y)) {
+                    if (user_move(cur_x, cur_y)) {
+                        if (is_ship_sunk(cur_x, cur_y)) {
                             automatic_bombardment();
                             break;
                         }
-                    }
-                    else{
+                    } else {
                         display();
                         return;
                     }

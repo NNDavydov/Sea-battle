@@ -32,7 +32,7 @@ int main() {
             w3.interface();
             while(true){
                 std::pair<int, int> p = AI.shot();
-                usleep(2000000);
+                usleep(1000000);
                 w2.computer_move(AI.get_shots(), p.first, p.second);
                 if(!w2.is_hit(p.first, p.second)) break;;
             }

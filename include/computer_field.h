@@ -9,11 +9,12 @@
 #include <string>
 
 #include "game_symbols.h"
+#include "params_windows.h"
 
 class WINDOW_GAME_COMPUTER_FIELD{
 private:
-    const int height = 23;
-    const int width = 42;
+    const int height = params_win::height;
+    const int width = params_win::width;
     const int win_x = 3;
     const int win_y = 50;
     WINDOW *window_computer_field;

@@ -23,7 +23,29 @@ void WINDOW_GAME_MY_FIELD::display() const {
     box(window_my_field, 0, 0);
     for (int i = 0; i < 10; ++i) {
         for (int j = 0; j < 10; ++j) {
-            mvwprintw(window_my_field, 2 * i + 2, 4 * j + 2, "%c", my_field_[i][j]);
+            start_color();
+            if (my_field_[i][j] == symbols::ship) {
+                init_pair(21, COLOR_GREEN, COLOR_BLACK);
+                wattron(window_my_field, COLOR_PAIR(21));
+                mvwprintw(window_my_field, 2 * i + 2, 4 * j + 2, "%c", my_field_[i][j]);
+                wattroff(window_my_field, COLOR_PAIR(21));
+            } else if (my_field_[i][j] == symbols::injured_ship) {
+                init_pair(22, COLOR_RED, COLOR_BLACK);
+                wattron(window_my_field, COLOR_PAIR(22));
+                mvwprintw(window_my_field, 2 * i + 2, 4 * j + 2, "%c", my_field_[i][j]);
+                wattroff(window_my_field, COLOR_PAIR(22));
+            } else if (my_field_[i][j] == symbols::sea) {
+                init_pair(23, COLOR_BLUE, COLOR_BLACK);
+                wattron(window_my_field, COLOR_PAIR(23));
+                mvwprintw(window_my_field, 2 * i + 2, 4 * j + 2, "%c", my_field_[i][j]);
+                wattroff(window_my_field, COLOR_PAIR(23));
+            } else if (my_field_[i][j] == symbols::miss) {
+                init_pair(24, COLOR_YELLOW, COLOR_BLACK);
+                wattron(window_my_field, COLOR_PAIR(24));
+                mvwprintw(window_my_field, 2 * i + 2, 4 * j + 2, "%c", my_field_[i][j]);
+                wattroff(window_my_field, COLOR_PAIR(24));
+            }
+            use_default_colors();
         }
     }
     wrefresh(window_my_field);
@@ -206,6 +228,6 @@ bool WINDOW_GAME_MY_FIELD::availability_of_ships() const {
 }
 
 
-bool WINDOW_GAME_MY_FIELD::is_hit(int x, int y){
+bool WINDOW_GAME_MY_FIELD::is_hit(int x, int y) {
     return my_field_[x][y] == symbols::injured_ship;
 }

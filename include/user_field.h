@@ -7,13 +7,14 @@
 #include <cstdlib>
 #include <array>
 #include <string>
+#include "params_windows.h"
 
 #include "game_symbols.h"
 
 class WINDOW_GAME_MY_FIELD {
 private:
-    const int height = 23;
-    const int width = 42;
+    const int height = params_win::height;
+    const int width = params_win::width;
     const int win_x = 3;
     const int win_y = 3;
     WINDOW *window_my_field;
