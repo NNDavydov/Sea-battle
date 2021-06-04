@@ -1,3 +1,5 @@
+// Copyright 2021 Davydov Nikolay davy.nikola@gmail.com
+
 #include "computer_field.h"
 
 WINDOW_GAME_COMPUTER_FIELD::WINDOW_GAME_COMPUTER_FIELD(std::array<std::array<char, 10>, 10> &computer_field) noexcept:

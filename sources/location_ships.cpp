@@ -193,6 +193,7 @@ bool WINDOW_LOCATION_SHIPS::location() {
                 position = !position;
                 break;
             case KEY_F(3):
+                clear();
                 return false;
             default:
                 break;

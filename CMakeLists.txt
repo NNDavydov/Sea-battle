@@ -10,11 +10,11 @@ include_directories(${CURSES_INCLUDE_DIR})
 
 add_library(${PROJECT_NAME} STATIC
         ${CMAKE_CURRENT_SOURCE_DIR}/
+        sources/main_menu.cpp
         sources/location_ships.cpp
         sources/user_field.cpp
         sources/computer_intelligence.cpp
-        sources/computer_field.cpp
-        sources/menu.cpp)
+        sources/computer_field.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
